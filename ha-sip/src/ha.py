@@ -233,6 +233,8 @@ def trigger_webhook(ha_config: HaConfig, event: Any, overwrite_webhook_id: Optio
     if not webhook_id:
         log(None, 'Warning: No webhook defined.')
         return
+    if event is None:
+        event = {}
     log(None, f'Calling webhook {webhook_id} with data {event}')
     headers = ha_config.create_headers()
     service_response = requests.post(ha_config.get_webhook_url(webhook_id), json=event, headers=headers)
